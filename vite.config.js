@@ -22,6 +22,10 @@ export default defineConfig({
       '^/summarization': {
         target,
         secure: false
+      },
+      '^/user': {
+        target,
+        secure: false
       }
     },
     port: 5173
