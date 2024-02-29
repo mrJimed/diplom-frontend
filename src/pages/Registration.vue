@@ -1,9 +1,11 @@
 <script setup>
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
+import { useStore } from 'vuex'
 import { registrationUser } from '../services/userService.js'
 
 const router = useRouter()
+const store = useStore()
 
 const username = ref('')
 const email = ref('')
@@ -13,7 +15,8 @@ const errorMessage = ref('')
 async function onRegistrationSubmit() {
   try {
     const user = await registrationUser(username.value, email.value, password.value)
-    router.push({ name: "Home" });
+    store.dispatch('login', user.username)
+    router.push({ name: 'Home' })
   } catch (ex) {
     const {
       response: { data }

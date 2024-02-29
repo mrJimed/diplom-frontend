@@ -18,3 +18,7 @@ export async function authorizationUser(email, password) {
     })
     return user
 }
+
+export async function logoutUser() {
+    await axios.post(`${ROOT_URL}/logout`)
+}

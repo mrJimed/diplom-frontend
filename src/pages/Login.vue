@@ -1,9 +1,11 @@
 <script setup>
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
+import { useStore } from 'vuex'
 import { authorizationUser } from '../services/userService.js'
 
 const router = useRouter()
+const store = useStore()
 
 const email = ref('')
 const password = ref('')
@@ -12,6 +14,7 @@ const errorMessage = ref('')
 async function onLoginSubmit() {
   try {
     const user = await authorizationUser(email.value, password.value)
+    store.dispatch('login', user.username)
     router.push({ name: 'Home' })
   } catch (ex) {
     const {
