@@ -11,6 +11,8 @@ export async function extractiveSummarization(text, top_n) {
 }
 
 export async function abstractiveSummarization(text) {
-    const { data: summarization } = await axios.post(`${ROOT_URL}/abstractive`, text)
+    const { data: summarization } = await axios.post(`${ROOT_URL}/abstractive`, {
+        text
+    })
     return summarization
 }

@@ -10,7 +10,7 @@ const numberSentences = ref(3)
 const summarizationMethod = ref('extractive')
 
 async function onSummarizationClick() {
-  if (summarizationMethod === 'extractive') {
+  if (summarizationMethod.value === 'extractive') {
     text.value = await extractiveSummarization(text.value, numberSentences.value)
   } else {
     text.value = await abstractiveSummarization(text.value)
