@@ -63,7 +63,7 @@ async function onLoginSubmit() {
 
     <div class="text-center">
       <input
-        class="hover:bg-gray-900 hover:text-white shadow-xl font-bold outline-none px-10 font-sans bg-gray-100 py-3 mb-3 mt-3 px-6 rounded-3xl transition text-gray-900 cursor-pointer text-center
+        class="hover:bg-gray-900 hover:text-white shadow-xl font-bold outline-none font-sans bg-gray-100 py-3 mb-3 mt-3 px-6 rounded-3xl transition text-gray-900 cursor-pointer text-center
         dark:bg-gray-800 dark:text-gray-400 dark:border-2 dark:border-gray-400 dark:hover:bg-gray-400 dark:hover:text-white dark:shadow-none"
         type="submit"
         value="Войти"

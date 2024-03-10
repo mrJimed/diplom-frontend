@@ -31,7 +31,7 @@ async function onSummarizationClick() {
       ></textarea>
 
       <input
-        class="hover:bg-gray-900 hover:text-white mt-5 mb-7 cursor-pointer rounded-3xl bg-gray-100 text-gray-900 py-2 shadow-xl 
+        class="hover:bg-gray-900 transition hover:text-white mt-5 mb-7 cursor-pointer rounded-3xl bg-gray-100 text-gray-900 py-2 shadow-xl 
         dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-400 dark:hover:text-white"
         type="submit"
         value="Отправить"

@@ -72,7 +72,7 @@ async function onRegistrationSubmit() {
   </div>
   <div class="text-center">
     <input
-      class="font-bold px-10 font-sans bg-gray-100 py-3 mb-3 mt-3 px-6 outline-none rounded-3xl transition text-gray-700 cursor-pointer text-center
+      class="font-bold font-sans bg-gray-100 py-3 mb-3 mt-3 px-6 outline-none rounded-3xl transition text-gray-700 cursor-pointer text-center
       dark:bg-gray-800 dark:text-gray-400 dark:border-2 dark:border-gray-400 dark:hover:bg-gray-400 dark:hover:text-white"
       type="submit"
       value="Создать аккаунт"
