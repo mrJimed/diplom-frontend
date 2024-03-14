@@ -26,6 +26,10 @@ export default defineConfig({
       '^/user': {
         target,
         secure: false
+      },
+      '^/history': {
+        target,
+        secure: false
       }
     },
     port: 5173

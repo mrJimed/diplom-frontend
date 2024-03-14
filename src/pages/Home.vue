@@ -1,9 +1,15 @@
 <script setup>
 import { ref } from 'vue'
+import { computed } from 'vue'
+import { useStore } from 'vuex'
 import {
   extractiveSummarization,
   abstractiveSummarization
 } from '../services/summarizationService.js'
+import { addHistory, getHistory } from '../services/historyService.js'
+
+const store = useStore()
+const user = computed(() => store.getters.user)
 
 const text = ref('')
 const numberSentences = ref(3)
@@ -14,6 +20,9 @@ async function onSummarizationClick() {
     text.value = await extractiveSummarization(text.value, numberSentences.value)
   } else {
     text.value = await abstractiveSummarization(text.value)
+  }
+  if (user.value) {
+    await addHistory('title', text.value)
   }
 }
 </script>
