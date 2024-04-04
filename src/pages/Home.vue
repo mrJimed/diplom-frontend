@@ -65,7 +65,7 @@ const sendEmail = () => {
 
 <template>
   <div 
-  class="mt-2"
+  class="h-screen mt-32"
   >  
     <form 
     class="flex flex-col w-fit mx-auto gap-3" 
@@ -215,7 +215,7 @@ const sendEmail = () => {
           </label>
           <div 
           v-if="showEmailInput" 
-          class="ml-16 flex-none text-gray-500 dark:text-gray-400 font-sans"
+          class="ml-14 flex-none text-gray-500 dark:text-gray-400 font-sans"
           >
             <input 
             class="outline-none bg-gray-100 px-2 py-2 w-80 text-center rounded-xl shadow-xl dark:bg-gray-800 font-sans placeholder:text-gray-500 placeholder:dark:text-gray-400" 
