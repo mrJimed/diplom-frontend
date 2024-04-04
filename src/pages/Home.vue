@@ -65,8 +65,8 @@ const sendEmail = () => {
 
 <template>
   <div 
-  class="mt-10"
-  >
+  class="mt-2"
+  >  
     <form 
     class="flex flex-col w-fit mx-auto gap-3" 
     @submit.prevent="onSummarizationClick"
@@ -78,7 +78,7 @@ const sendEmail = () => {
       @drop.prevent="drop($event); toggleActive()"
       :class="{ 'active-dropzone': active }"
       class="dropzone"
-      >
+      > 
         <label 
         for="dropzoneFile"
         class="flex flex-col items-center justify-center w-96 h-64 shadow-xl rounded-3xl 
