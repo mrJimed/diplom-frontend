@@ -32,7 +32,11 @@ async function onLogoutBtnClick() {
           <i class="fa-solid fa-clock-rotate-left text-xl"></i>
         </router-link>
         <button class="dark:text-gray-400" @click="toggleDark()">
-          <i class="fa-solid fa-moon text-xl" title="Сменить тему"></i>
+          <i
+            :class="isDark ? 'fa-solid fa-sun' : 'fa-solid fa-moon'"
+            class="text-xl"
+            :title="isDark ? 'Светлая тема' : 'Тёмная тема'"
+          ></i>
         </button>
         <div v-if="user" class="flex gap-4 items-center bg-white px-3 py-2 rounded-md">
           <h4 class="text-xl select-none font-bold">{{ user }}</h4>
