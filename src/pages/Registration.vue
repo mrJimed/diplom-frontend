@@ -15,11 +15,8 @@ const errorMessage = ref('')
 async function onRegistrationSubmit() {
   try {
     const user = await registrationUser(username.value, email.value, password.value)
-    console.log(1)
     store.dispatch('login', user.username)
-    console.log(2)
     router.push({ name: 'Home' })
-    console.log(3)
   } catch (ex) {
     const {
       response: { data }
