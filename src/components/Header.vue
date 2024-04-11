@@ -2,10 +2,10 @@
 import { computed } from 'vue'
 import { useStore } from 'vuex'
 import { logoutUser } from '../services/userService.js'
-import { useDark, useToggle } from '@vueuse/core';
+import { useDark, useToggle } from '@vueuse/core'
 
-const isDark = useDark();
-const toggleDark = useToggle(isDark);
+const isDark = useDark()
+const toggleDark = useToggle(isDark)
 
 const store = useStore()
 const user = computed(() => store.getters.user)
@@ -21,86 +21,29 @@ async function onLogoutBtnClick() {
 </script>
 
 <template>
-  <header
-  >
-    <div 
-    class="w-11/12 mx-auto flex"
-    >
-      <router-link 
-      to="/" 
-      class="block text-left text-black relative"
-      >
-        <h1 
-        class="font-sans text-3xl text-gray-900 font-bold absolute top-[18px] left-[-25px] dark:text-gray-400"
-        >
-          Annotation
-        </h1>
+  <header>
+    <div class="w-11/12 mx-auto flex justify-between pt-3">
+      <router-link to="/" class="block text-left text-black relative">
+        <h1 class="font-sans text-3xl text-gray-900 font-bold dark:text-gray-400">Annotation</h1>
       </router-link>
 
-      <div
-      class="dark-mode-toggle flex justify-end absolute top-[18px] left-[1465px]"
-      >
-        <router-link
-          
-          to="/History" 
-          class="flex absolute top-[1px] left-[20px]"
-        >
-          <svg viewBox="0 0 512 512" style="currentColor" xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-gray-900 dark:text-gray-400">
-            <rect 
-            width="512" 
-            height="512" 
-            x="0" 
-            y="0" 
-            rx="30" 
-            fill="transparent" 
-            stroke="transparent" 
-            stroke-width="0" 
-            stroke-opacity="100%" 
-            paint-order="stroke">
-            </rect>
-            <svg width="256px" height="256px" viewBox="0 0 24 24" fill="currentColor" x="128" y="128" role="img" style="display:inline-block;vertical-align:middle" xmlns="http://www.w3.org/2000/svg">
-              <g fill="currentColor">
-                <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-                  <path d="M5.636 18.364A9 9 0 1 0 3 12.004V14"/>
-                  <path d="m1 12l2 2l2-2m6-4v5h5"/>
-                </g>
-              </g>
-            </svg>
-          </svg>         
+      <div class="dark-mode-toggle flex justify-end items-center gap-10">
+        <router-link to="/history" class="flex dark:text-gray-400" title="История" v-if="user">
+          <i class="fa-solid fa-clock-rotate-left text-xl"></i>
         </router-link>
-        <button
-        class="absolute top-[13px] left-[100px]" 
-        @click="toggleDark()"
-          >
-            <svg
-            xmlns="http://www.w3.org/2000/svg"
-            class="h-6 w-6 text-gray-900 dark:text-gray-400"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            >
-              <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"
-              />
-            </svg>
+        <button class="dark:text-gray-400" @click="toggleDark()">
+          <i class="fa-solid fa-moon text-xl" title="Сменить тему"></i>
         </button>
-        <div
-          v-if="user"
-          class="flex gap-3 items-center"
-        >
+        <div v-if="user" class="flex gap-4 items-center bg-white px-3 py-2 rounded-md">
           <h4 class="text-xl select-none font-bold">{{ user }}</h4>
-          <button type="button" @click="onLogoutBtnClick"
-          class="text-gray-900 dark:text-gray-400 ml-9">
+          <button class="text-gray-900" type="button" @click="onLogoutBtnClick">
             <i class="fa-solid fa-right-from-bracket text-xl" title="Выход"></i>
           </button>
         </div>
         <router-link class="text-gray-900 dark:text-gray-400" v-else to="/login" title="Вход">
-          <i class="fa-solid fa-right-to-bracket text-xl absolute top-[12px] left-[170px]"></i>
+          <i class="fa-solid fa-right-to-bracket text-xl"></i>
         </router-link>
-        </div>
+      </div>
     </div>
   </header>
 </template>
