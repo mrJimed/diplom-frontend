@@ -19,7 +19,7 @@ export default defineConfig({
   },
   server: {
     proxy: {
-      '^/summarization': {
+      '^/annotation': {
         target,
         secure: false
       },

@@ -5,7 +5,7 @@ import { useStore } from 'vuex'
 import {
   extractiveSummarization,
   abstractiveSummarization
-} from '../services/summarizationService.js'
+} from '../services/annotationService.js'
 import { addHistory, getHistory } from '../services/historyService.js'
 
 const store = useStore()
@@ -42,9 +42,9 @@ const removeFile = () => {
 
 async function onSummarizationClick() {
   if (summarizationMethod.value === 'extractive') {
-    text.value = await extractiveSummarization(text.value, numberSentences.value)
+    text.value = await extractiveSummarization(dropzoneFile.value, numberSentences.value, sendEmailAfterCompletion.value, email.value)
   } else {
-    text.value = await abstractiveSummarization(text.value)
+    text.value = await abstractiveSummarization(dropzoneFile.value, sendEmailAfterCompletion.value, email.value)
   }
   if (user.value) {
     await addHistory('title', text.value)
