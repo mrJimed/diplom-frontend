@@ -162,6 +162,7 @@ const sendEmail = () => {
       cols="110"
       placeholder="Обработанный текст"
       v-model="text"
+      readonly
       ></textarea>
 
       <div 
