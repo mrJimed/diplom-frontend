@@ -60,15 +60,15 @@ async function onSummarizationClick() {
     @submit.prevent="onSummarizationClick"
     >
       <div
-      @dragenter.prevent="toggleActive"
-      @dragleave.prevent="toggleActive"
-      @dragover.prevent
+        @dragenter.prevent="toggleActive"
+        @dragleave.prevent="toggleActive"
+        @dragover.prevent
       @drop.prevent="drop($event); toggleActive()"
-      :class="{ 'active-dropzone': active }"
-      class="dropzone"
-      > 
-        <label 
-        for="dropzoneFile"
+        :class="{ 'active-dropzone': active }"
+        class="dropzone"
+      >
+        <label
+          for="dropzoneFile"
         class="flex flex-col items-center justify-center w-96 h-64 shadow-xl rounded-3xl 
         cursor-pointer bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-600
         transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"
@@ -102,11 +102,11 @@ async function onSummarizationClick() {
         File: {{ dropzoneFile?.name || 'No file selected' }}
         <button @click="removeFile">
           <svg
-          class="h-5 w-5 text-gray-500 dark:text-gray-400"
-          fill="none"
-          viewBox="0 0 40 40"
-          stroke="currentColor"
-          transform="translate(1, 4)"
+            class="h-5 w-5 text-gray-500 dark:text-gray-400"
+            fill="none"
+            viewBox="0 0 40 40"
+            stroke="currentColor"
+            transform="translate(1, 4)"
           >
             <path 
             d="M 10,10 L 30,30 M 30,10 L 10,30"
@@ -119,8 +119,8 @@ async function onSummarizationClick() {
       class="
       hover:bg-gray-200 dark:hover:bg-gray-600 transition mt-2 mb-7 cursor-pointer rounded-3xl bg-gray-100 text-gray-500 py-2 shadow-xl 
       dark:text-gray-400 dark:bg-gray-800"
-      type="submit"
-      value="Отправить"
+        type="submit"
+        value="Отправить"
       />
     </form>
 
@@ -131,19 +131,19 @@ async function onSummarizationClick() {
       <textarea
       class="shadow-xl resize-none outline-none rounded-3xl px-3 py-2 bg-gray-100 placeholder-gray-500 text-gray-500 font-sans
       dark:text-gray-400 dark:bg-gray-800 dark:placeholder-gray-400"
-      rows="8"
-      cols="110"
-      placeholder="Обработанный текст"
-      v-model="text"
-      readonly
+        rows="8"
+        cols="110"
+        placeholder="Обработанный текст"
+        v-model="text"
+        readonly
       ></textarea>
 
       <div 
       class="flex justify-between items-center text-lg font-sans mt-2 mb-4"
       >
-        <select 
-        class="flex-none px-2 py-3 outline-none bg-transparent text-gray-500 dark:text-gray-400" 
-        v-model="summarizationMethod"
+        <select
+          class="flex-none px-2 py-3 outline-none bg-transparent text-gray-500 dark:text-gray-400"
+          v-model="summarizationMethod"
         >
           <option 
           class="dark:bg-gray-800" 
@@ -158,30 +158,36 @@ async function onSummarizationClick() {
             Экстрактивная
           </option>
         </select>
-        <div 
-        class="flex items-center gap-10 text-gray-500 dark:text-gray-400" 
-        v-if="summarizationMethod === 'extractive'"
+        <div
+          class="flex items-center gap-10 text-gray-500 dark:text-gray-400"
+          v-if="summarizationMethod === 'extractive'"
         >
           <p>Кол-во предложений:</p>
           <input
-          class="outline-none bg-gray-100 px-2 py-2 w-24 text-center rounded-xl shadow-xl dark:bg-gray-800"
-          type="number"
-          value="3"
-          min="3"
-          v-model="numberSentences"
+            class="outline-none bg-gray-100 px-2 py-2 w-24 text-center rounded-xl shadow-xl dark:bg-gray-800"
+            type="number"
+            value="3"
+            min="3"
+            v-model="numberSentences"
           />
         </div>
       </div>
 
       <div class="flex justify-between items-center mt-2">
         <div class="flex items-center gap-2">
-          <input type="checkbox" v-model="sendEmailAfterCompletion">
-          <p class="text-lg text-gray-500 dark:text-gray-400 font-sans">Отправить на почту после завершения</p>
+          <input type="checkbox" v-model="sendEmailAfterCompletion" />
+          <p class="text-lg text-gray-500 dark:text-gray-400 font-sans">
+            Отправить на почту после завершения
+          </p>
         </div>
 
-        <input v-if="sendEmailAfterCompletion"
+        <input
+          v-if="sendEmailAfterCompletion"
           class="outline-none text-gray-500 dark:text-gray-400 bg-gray-100 px-2 py-2 w-80 text-center rounded-xl shadow-xl dark:bg-gray-800 font-sans placeholder:text-gray-500 placeholder:dark:text-gray-400"
-          type="email" v-model="email" placeholder="Введите вашу электронную почту">
+          type="email"
+          v-model="email"
+          placeholder="Введите вашу электронную почту"
+        />
       </div>
     </form>
   </div>
