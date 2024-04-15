@@ -18,7 +18,6 @@ const numberSentences = ref(3)
 const summarizationMethod = ref('extractive')
 const sendEmailAfterCompletion = ref(false)
 const email = ref('')
-const showEmailInput = ref(false)
 
 const toggleActive = () => {
   active.value = !active.value
@@ -49,18 +48,6 @@ async function onSummarizationClick() {
   if (user.value) {
     await addHistory('title', text.value)
   }
-}
-
-const toggleEmailInput = () => {
-  showEmailInput.value = !showEmailInput.value
-}
-
-const sendEmail = () => {
-  console.log('Отправка на электронную почту:', email.value)
-  sendEmailAfterCompletion.value = false
-  email.value = ''
-  showEmailInput.value = false
-
 }
 </script>
 
@@ -197,12 +184,11 @@ const sendEmail = () => {
             <input 
             type="checkbox" 
             v-model="sendEmailAfterCompletion" 
-            @change="toggleEmailInput"
             >
             Отправить на почту после завершения
           </label>
           <div 
-          v-if="showEmailInput" 
+          v-if="sendEmailAfterCompletion" 
           class="ml-14 flex-none text-gray-500 dark:text-gray-400 font-sans"
           >
             <input 
@@ -211,12 +197,6 @@ const sendEmail = () => {
             v-model="email" 
             placeholder="Введите вашу электронную почту"
             >
-            <button 
-            @click="sendEmail"
-            class="ml-9"
-            >
-              Отправить
-            </button>
           </div>
         </div>
       </div>
