@@ -124,13 +124,9 @@ async function onSummarizationClick() {
       />
     </form>
 
-    <form 
-    class="flex-none w-fit mx-auto gap-4"
-    @submit.prevent="onSummarizationClick"
-    >
+    <form class="flex-none w-fit mx-auto gap-4" @submit.prevent="onSummarizationClick">
       <textarea
-      class="shadow-xl resize-none outline-none rounded-3xl px-3 py-2 bg-gray-100 placeholder-gray-500 text-gray-500 font-sans
-      dark:text-gray-400 dark:bg-gray-800 dark:placeholder-gray-400"
+        class="shadow-xl resize-none outline-none rounded-3xl px-3 py-2 bg-gray-100 placeholder-gray-500 text-gray-500 font-sans dark:text-gray-400 dark:bg-gray-800 dark:placeholder-gray-400"
         rows="8"
         cols="110"
         placeholder="Обработанный текст"
