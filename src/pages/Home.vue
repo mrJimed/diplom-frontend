@@ -76,16 +76,16 @@ async function onSummarizationClick() {
           <div
           class="flex flex-col items-center justify-center pt-5 pb-6"
           >
-          <i class="fa-solid fa-cloud-arrow-up text-gray-500 dark:text-gray-400 mb-3 text-3xl"></i>
+            <i class="fa-solid fa-cloud-arrow-up text-gray-500 dark:text-gray-400 mb-3 text-3xl"></i>
             <p 
             class="mb-2 text-sm text-gray-500 dark:text-gray-400"
             >
-            <span>Click to upload</span>or drag and drop
+              <span>Click to upload</span>or drag and drop
             </p>
             <p
             class="text-xs text-gray-500 dark:text-gray-400"
             >
-            Any file types here
+              Any file types here
             </p>
           </div>
           <input
@@ -172,33 +172,16 @@ async function onSummarizationClick() {
           />
         </div>
       </div>
-      <div 
-      class="flex justify-between items-center text-lg"
-      >
-        <div 
-        class=" flex text-gray-500 dark:text-gray-400 font-sans"
-        >
-          <label 
-          class="flex-none items-center gap-2 mt-2"
-          >
-            <input 
-            type="checkbox" 
-            v-model="sendEmailAfterCompletion" 
-            >
-            Отправить на почту после завершения
-          </label>
-          <div 
-          v-if="sendEmailAfterCompletion" 
-          class="ml-14 flex-none text-gray-500 dark:text-gray-400 font-sans"
-          >
-            <input 
-            class="outline-none bg-gray-100 px-2 py-2 w-80 text-center rounded-xl shadow-xl dark:bg-gray-800 font-sans placeholder:text-gray-500 placeholder:dark:text-gray-400" 
-            type="email" 
-            v-model="email" 
-            placeholder="Введите вашу электронную почту"
-            >
-          </div>
+
+      <div class="flex justify-between items-center mt-2">
+        <div class="flex items-center gap-2">
+          <input type="checkbox" v-model="sendEmailAfterCompletion">
+          <p class="text-lg text-gray-500 dark:text-gray-400 font-sans">Отправить на почту после завершения</p>
         </div>
+
+        <input v-if="sendEmailAfterCompletion"
+          class="outline-none text-gray-500 dark:text-gray-400 bg-gray-100 px-2 py-2 w-80 text-center rounded-xl shadow-xl dark:bg-gray-800 font-sans placeholder:text-gray-500 placeholder:dark:text-gray-400"
+          type="email" v-model="email" placeholder="Введите вашу электронную почту">
       </div>
     </form>
   </div>
