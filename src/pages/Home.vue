@@ -138,29 +138,18 @@ async function onSummarizationClick() {
         readonly
       ></textarea>
 
-      <div 
-      class="flex justify-between items-center text-lg font-sans mt-2 mb-4"
-      >
+      <div class="flex justify-between items-center text-lg font-sans mt-2 mb-4">
         <select
           class="flex-none px-2 py-3 outline-none bg-transparent text-gray-500 dark:text-gray-400"
           v-model="summarizationMethod"
         >
-          <option 
-          class="dark:bg-gray-800" 
-          value="abstractive"
-          >
-            Абстрактивная
-          </option>
-          <option 
-          class="dark:bg-gray-800" 
-          value="extractive"
-          >
-            Экстрактивная
-          </option>
+          <option class="dark:bg-gray-800" value="abstractive">Абстрактивная</option>
+          <option class="dark:bg-gray-800" value="extractive">Экстрактивная</option>
         </select>
+
         <div
-          class="flex items-center gap-10 text-gray-500 dark:text-gray-400"
           v-if="summarizationMethod === 'extractive'"
+          class="flex items-center gap-10 text-gray-500 dark:text-gray-400"
         >
           <p>Кол-во предложений:</p>
           <input
