@@ -2,123 +2,97 @@
 import { ref } from 'vue'
 import { computed } from 'vue'
 import { useStore } from 'vuex'
-import {
-  extractiveSummarization,
-  abstractiveSummarization
-} from '../services/annotationService.js'
-import { addHistory, getHistory } from '../services/historyService.js'
+import { extractiveSummarization, abstractiveSummarization } from '../services/annotationService.js'
+import { addHistory } from '../services/historyService.js'
 
 const store = useStore()
 const user = computed(() => store.getters.user)
 
-const active = ref(false)
-let dropzoneFile = ref('')
-const text = ref('')
-const numberSentences = ref(3)
+// mail
+const emailAddress = ref('')
+const isSendEmailAfterCompletion = ref(false)
+
+// annotation
+const annotation = ref('')
 const summarizationMethod = ref('extractive')
-const sendEmailAfterCompletion = ref(false)
-const email = ref('')
+const numberSentences = ref(3)
 
-const toggleActive = () => {
-  active.value = !active.value
+// dropzone
+const dropzoneFile = ref('')
+const fileInput = ref(null)
+
+function onSelectedFile(event) {
+  dropzoneFile.value = event.target.files[0]
 }
 
-const drop = (e) => {
-  dropzoneFile.value = e.dataTransfer.files[0]
+function onDragAndDrop(event) {
+  dropzoneFile.value = event.dataTransfer.files[0]
 }
 
-const selectedFile = () => {
-  dropzoneFile.value = document.querySelector('.dropzoneFile').files[0]
+function openFileDialog() {
+  fileInput.value.click()
 }
 
-const removeFile = () => {
-  dropzoneFile.value = null;
-  const fileInput = document.querySelector('.dropzoneFile');
-  if (fileInput) {
-    fileInput.value = null;
-  }
+function onRemoveFile() {
+  dropzoneFile.value = null
+  fileInput.value = null
 }
 
 async function onSummarizationClick() {
   if (summarizationMethod.value === 'extractive') {
-    text.value = await extractiveSummarization(dropzoneFile.value, numberSentences.value, sendEmailAfterCompletion.value, email.value)
+    annotation.value = await extractiveSummarization(
+      dropzoneFile.value,
+      numberSentences.value,
+      isSendEmailAfterCompletion.value,
+      emailAddress.value
+    )
   } else {
-    text.value = await abstractiveSummarization(dropzoneFile.value, sendEmailAfterCompletion.value, email.value)
+    annotation.value = await abstractiveSummarization(
+      dropzoneFile.value,
+      isSendEmailAfterCompletion.value,
+      emailAddress.value
+    )
   }
   if (user.value) {
-    await addHistory('title', text.value)
+    await addHistory('title', annotation.value)
   }
 }
 </script>
 
 <template>
-  <div 
-  class="h-screen mt-32"
-  >  
-    <form 
-    class="flex flex-col w-fit mx-auto gap-3" 
-    @submit.prevent="onSummarizationClick"
-    >
+  <div class="h-screen mt-32">
+    <form class="flex flex-col w-fit mx-auto gap-3">
       <div
-        @dragenter.prevent="toggleActive"
-        @dragleave.prevent="toggleActive"
         @dragover.prevent
-      @drop.prevent="drop($event); toggleActive()"
-        :class="{ 'active-dropzone': active }"
-        class="dropzone"
+        @drop.prevent="onDragAndDrop"
+        @click="openFileDialog"
+        class="mx-auto flex flex-col items-center justify-center w-96 h-64 shadow-xl rounded-3xl cursor-pointer bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-600 transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"
       >
-        <label
-          for="dropzoneFile"
-        class="flex flex-col items-center justify-center w-96 h-64 shadow-xl rounded-3xl 
-        cursor-pointer bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-600
-        transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110"
-        >
-          <div
-          class="flex flex-col items-center justify-center pt-5 pb-6"
-          >
-            <i class="fa-solid fa-cloud-arrow-up text-gray-500 dark:text-gray-400 mb-3 text-3xl"></i>
-            <p 
-            class="mb-2 text-sm text-gray-500 dark:text-gray-400"
-            >
-              <span>Click to upload</span>or drag and drop
-            </p>
-            <p
-            class="text-xs text-gray-500 dark:text-gray-400"
-            >
-              Any file types here
-            </p>
-          </div>
-          <input
-          type="file"
-          id="dropzoneFile"
-          class="dropzoneFile hidden"
-          @change="selectedFile"
-          />
-        </label>
+        <div class="flex flex-col items-center justify-center pt-5 pb-6">
+          <i class="fa-solid fa-cloud-arrow-up text-gray-500 dark:text-gray-400 mb-3 text-3xl"></i>
+
+          <p class="mb-2 text-sm text-gray-500 dark:text-gray-400">
+            <span>Click to upload</span>or drag and drop
+          </p>
+
+          <p class="text-xs text-gray-500 dark:text-gray-400">Any file types here</p>
+        </div>
+
+        <input type="file" ref="fileInput" class="hidden" @change="onSelectedFile" />
       </div>
-      <span
-      class="file-info text-md text-gray-500 dark:text-gray-400"
+
+      <div
+        v-if="dropzoneFile"
+        class="flex gap-2 items-center text-md text-gray-500 dark:text-gray-400"
       >
-        File: {{ dropzoneFile?.name || 'No file selected' }}
-        <button @click="removeFile">
-          <svg
-            class="h-5 w-5 text-gray-500 dark:text-gray-400"
-            fill="none"
-            viewBox="0 0 40 40"
-            stroke="currentColor"
-            transform="translate(1, 4)"
-          >
-            <path 
-            d="M 10,10 L 30,30 M 30,10 L 10,30"
-            stroke-width="5"
-            />
-          </svg>
+        <p>Файл: {{ dropzoneFile.name }}</p>
+        <button @click="onRemoveFile">
+          <i class="fa-solid fa-xmark text-gray-500 dark:text-gray-400 text-lg"></i>
         </button>
-      </span>
+      </div>
+
       <input
-      class="
-      hover:bg-gray-200 dark:hover:bg-gray-600 transition mt-2 mb-7 cursor-pointer rounded-3xl bg-gray-100 text-gray-500 py-2 shadow-xl 
-      dark:text-gray-400 dark:bg-gray-800"
+        class="hover:bg-gray-200 dark:hover:bg-gray-600 transition mt-2 mb-7 cursor-pointer rounded-3xl bg-gray-100 text-gray-500 py-2 shadow-xl dark:text-gray-400 dark:bg-gray-800"
         type="submit"
         value="Отправить"
       />
@@ -130,7 +104,7 @@ async function onSummarizationClick() {
         rows="8"
         cols="110"
         placeholder="Обработанный текст"
-        v-model="text"
+        v-model="annotation"
         readonly
       ></textarea>
 
@@ -160,17 +134,17 @@ async function onSummarizationClick() {
 
       <div class="flex justify-between items-center mt-2">
         <div class="flex items-center gap-2">
-          <input type="checkbox" v-model="sendEmailAfterCompletion" />
+          <input type="checkbox" v-model="isSendEmailAfterCompletion" />
           <p class="text-lg text-gray-500 dark:text-gray-400 font-sans">
             Отправить на почту после завершения
           </p>
         </div>
 
         <input
-          v-if="sendEmailAfterCompletion"
+          v-if="isSendEmailAfterCompletion"
           class="outline-none text-gray-500 dark:text-gray-400 bg-gray-100 px-2 py-2 w-80 text-center rounded-xl shadow-xl dark:bg-gray-800 font-sans placeholder:text-gray-500 placeholder:dark:text-gray-400"
           type="email"
-          v-model="email"
+          v-model="emailAddress"
           placeholder="Введите вашу электронную почту"
         />
       </div>
