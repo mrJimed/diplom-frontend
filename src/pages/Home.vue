@@ -54,14 +54,14 @@ async function onSummarizationClick() {
     )
   }
   if (user.value) {
-    await addHistory('title', annotation.value)
+    await addHistory(dropzoneFile.value.name, annotation.value)
   }
 }
 </script>
 
 <template>
   <div class="h-screen mt-32">
-    <form class="flex flex-col w-fit mx-auto gap-3">
+    <form class="flex flex-col w-fit mx-auto gap-3" @submit.prevent="onSummarizationClick">
       <div
         @dragover.prevent
         @drop.prevent="onDragAndDrop"
@@ -72,10 +72,8 @@ async function onSummarizationClick() {
           <i class="fa-solid fa-cloud-arrow-up text-gray-500 dark:text-gray-400 mb-3 text-3xl"></i>
 
           <p class="mb-2 text-sm text-gray-500 dark:text-gray-400">
-            <span>Click to upload</span>or drag and drop
+            <span>Нажмите для загрузки<br>или перетащите файл</span>
           </p>
-
-          <p class="text-xs text-gray-500 dark:text-gray-400">Any file types here</p>
         </div>
 
         <input type="file" ref="fileInput" class="hidden" @change="onSelectedFile" />
@@ -98,7 +96,7 @@ async function onSummarizationClick() {
       />
     </form>
 
-    <form class="flex-none w-fit mx-auto gap-4" @submit.prevent="onSummarizationClick">
+    <div class="flex-none w-fit mx-auto gap-4">
       <textarea
         class="shadow-xl resize-none outline-none rounded-3xl px-3 py-2 bg-gray-100 placeholder-gray-500 text-gray-500 font-sans dark:text-gray-400 dark:bg-gray-800 dark:placeholder-gray-400"
         rows="8"
@@ -148,6 +146,6 @@ async function onSummarizationClick() {
           placeholder="Введите вашу электронную почту"
         />
       </div>
-    </form>
+    </div>
   </div>
 </template>
