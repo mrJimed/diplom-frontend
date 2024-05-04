@@ -16,6 +16,8 @@ const isSendEmailAfterCompletion = ref(false)
 const annotation = ref('')
 const summarizationMethod = ref('extractive')
 const numberSentences = ref(3)
+const maxLength = ref(30)
+const minLength = ref(20)
 
 // dropzone
 const dropzoneFile = ref('')
@@ -51,12 +53,18 @@ async function onSummarizationClick() {
     annotation.value = await abstractiveSummarization(
       dropzoneFile.value,
       isSendEmailAfterCompletion.value,
-      emailAddress.value
+      emailAddress.value,
+      maxLength.value,
+      minLength.value
     )
   }
   if (user.value) {
     await addHistory(dropzoneFile.value.name, annotation.value)
   }
+}
+
+function onChangeMaxLength() {
+  if (minLength.value > maxLength.value) minLength.value = maxLength.value - 10
 }
 </script>
 
@@ -73,7 +81,7 @@ async function onSummarizationClick() {
           <i class="fa-solid fa-cloud-arrow-up text-gray-500 dark:text-gray-400 mb-3 text-3xl"></i>
 
           <p class="mb-2 text-sm text-gray-500 dark:text-gray-400">
-            <span>Нажмите для загрузки<br>или перетащите файл</span>
+            <span>Нажмите для загрузки<br />или перетащите файл</span>
           </p>
         </div>
 
@@ -128,6 +136,32 @@ async function onSummarizationClick() {
             min="3"
             v-model="numberSentences"
           />
+        </div>
+        <div v-else class="flex flex-col gap-y-2">
+          <div class="flex items-center gap-10 text-gray-500 dark:text-gray-400">
+            <p>Min:</p>
+            <input
+              class="outline-none bg-gray-100 px-2 py-2 w-24 text-center rounded-xl shadow-xl dark:bg-gray-800"
+              type="number"
+              min="20"
+              step="10"
+              :max="maxLength - 10"
+              v-model="minLength"
+            />
+          </div>
+
+          <div class="flex items-center gap-10 text-gray-500 dark:text-gray-400">
+            <p>Max:</p>
+            <input
+              class="outline-none bg-gray-100 px-2 py-2 w-24 text-center rounded-xl shadow-xl dark:bg-gray-800"
+              type="number"
+              min="30"
+              max="70"
+              step="10"
+              @change="onChangeMaxLength"
+              v-model="maxLength"
+            />
+          </div>
         </div>
       </div>
 

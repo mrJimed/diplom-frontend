@@ -16,11 +16,13 @@ export async function extractiveSummarization(file, topN, isSendEmail, toEmail) 
     return summarization
 }
 
-export async function abstractiveSummarization(file, isSendEmail, toEmail) {
+export async function abstractiveSummarization(file, isSendEmail, toEmail, maxLength, minLength) {
     const { data: summarization } = await axios.post(`${ROOT_URL}/abstractive`, {
         file,
         isSendEmail,
-        toEmail
+        toEmail,
+        maxLength,
+        minLength
     }, {
         headers: {
             'Content-Type': 'multipart/form-data'
