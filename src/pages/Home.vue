@@ -60,7 +60,7 @@ async function onSummarizationClick() {
 </script>
 
 <template>
-  <div class="h-screen mt-32">
+  <div class="h-screen mt-7">
     <form class="flex flex-col w-fit mx-auto gap-3" @submit.prevent="onSummarizationClick">
       <div
         @dragover.prevent
