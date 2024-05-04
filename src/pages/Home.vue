@@ -23,6 +23,7 @@ const fileInput = ref(null)
 
 function onSelectedFile(event) {
   dropzoneFile.value = event.target.files[0]
+  event.target.value = ''
 }
 
 function onDragAndDrop(event) {
