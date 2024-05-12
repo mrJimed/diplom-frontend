@@ -137,9 +137,10 @@ function onChangeMaxLength() {
             v-model="numberSentences"
           />
         </div>
-        <div v-else class="flex flex-col gap-y-2">
-          <div class="flex items-center gap-10 text-gray-500 dark:text-gray-400">
-            <p>Min:</p>
+        <div v-else class="flex gap-4 items-center">
+          <p class="text-gray-500 dark:text-gray-400">Диапазон сжатия текста (%):</p>
+          <div class="flex items-center gap-2 text-gray-500 dark:text-gray-400">
+            <p>мин:</p>
             <input
               class="outline-none bg-gray-100 px-2 py-2 w-24 text-center rounded-xl shadow-xl dark:bg-gray-800"
               type="number"
@@ -150,8 +151,8 @@ function onChangeMaxLength() {
             />
           </div>
 
-          <div class="flex items-center gap-10 text-gray-500 dark:text-gray-400">
-            <p>Max:</p>
+          <div class="flex items-center gap-2 text-gray-500 dark:text-gray-400">
+            <p>макс:</p>
             <input
               class="outline-none bg-gray-100 px-2 py-2 w-24 text-center rounded-xl shadow-xl dark:bg-gray-800"
               type="number"
