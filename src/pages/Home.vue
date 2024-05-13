@@ -70,7 +70,7 @@ function onChangeMaxLength() {
 
 <template>
   <div class="h-screen mt-7">
-    <form class="flex flex-col w-fit mx-auto gap-3" @submit.prevent="onSummarizationClick">
+    <form class="flex flex-col w-fit mx-auto gap-3 mb-6" @submit.prevent="onSummarizationClick">
       <div
         @dragover.prevent
         @drop.prevent="onDragAndDrop"
@@ -99,7 +99,8 @@ function onChangeMaxLength() {
       </div>
 
       <input
-        class="hover:bg-gray-200 dark:hover:bg-gray-600 transition mt-2 mb-7 cursor-pointer rounded-3xl bg-gray-100 text-gray-500 py-2 shadow-xl dark:text-gray-400 dark:bg-gray-800"
+        v-if="dropzoneFile"
+        class="hover:bg-gray-200 dark:hover:bg-gray-600 transition cursor-pointer rounded-3xl bg-gray-100 text-gray-500 py-2 shadow-xl dark:text-gray-400 dark:bg-gray-800"
         type="submit"
         value="Отправить"
       />
