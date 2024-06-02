@@ -3,7 +3,6 @@ import { ref } from 'vue'
 import { computed } from 'vue'
 import { useStore } from 'vuex'
 import { extractiveSummarization, abstractiveSummarization } from '../services/annotationService.js'
-import { addHistory } from '../services/historyService.js'
 
 const store = useStore()
 const user = computed(() => store.getters.user)
@@ -57,9 +56,6 @@ async function onSummarizationClick() {
       maxLength.value,
       minLength.value
     )
-  }
-  if (user.value) {
-    await addHistory(dropzoneFile.value.name, annotation.value)
   }
 }
 
