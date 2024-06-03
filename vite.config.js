@@ -30,6 +30,10 @@ export default defineConfig({
       '^/history': {
         target,
         secure: false
+      },
+      '^/file': {
+        target,
+        secure: false
       }
     },
     port: 5173
