@@ -14,7 +14,7 @@ const errorMessage = ref('')
 async function onLoginSubmit() {
   try {
     const user = await authorizationUser(email.value, password.value)
-    store.dispatch('login', user.username)
+    store.dispatch('login', user)
     router.push({ name: 'Home' })
   } catch (ex) {
     const {

@@ -15,7 +15,7 @@ const errorMessage = ref('')
 async function onRegistrationSubmit() {
   try {
     const user = await registrationUser(username.value, email.value, password.value)
-    store.dispatch('login', user.username)
+    store.dispatch('login', user)
     router.push({ name: 'Home' })
   } catch (ex) {
     const {

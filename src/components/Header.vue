@@ -8,7 +8,7 @@ const isDark = useDark()
 const toggleDark = useToggle(isDark)
 
 const store = useStore()
-const user = computed(() => store.getters.user)
+const username = computed(() => store.getters.username)
 
 async function onLogoutBtnClick() {
   try {
@@ -28,7 +28,7 @@ async function onLogoutBtnClick() {
       </router-link>
 
       <div class="dark-mode-toggle flex justify-end items-center gap-10">
-        <router-link to="/history" class="flex dark:text-gray-400" title="История" v-if="user">
+        <router-link to="/history" class="flex dark:text-gray-400" title="История" v-if="username">
           <i class="fa-solid fa-clock-rotate-left text-xl"></i>
         </router-link>
         <button class="dark:text-gray-400" @click="toggleDark()">
@@ -38,8 +38,8 @@ async function onLogoutBtnClick() {
             :title="isDark ? 'Светлая тема' : 'Тёмная тема'"
           ></i>
         </button>
-        <div v-if="user" class="flex gap-4 items-center bg-white px-3 py-2 rounded-md">
-          <h4 class="text-xl select-none font-bold">{{ user }}</h4>
+        <div v-if="username" class="flex gap-4 items-center bg-white px-3 py-2 rounded-md">
+          <h4 class="text-xl select-none font-bold">{{ username }}</h4>
           <button class="text-gray-900" type="button" @click="onLogoutBtnClick">
             <i class="fa-solid fa-right-from-bracket text-xl" title="Выход"></i>
           </button>

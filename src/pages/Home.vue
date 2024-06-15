@@ -6,12 +6,12 @@ import { extractiveSummarization, abstractiveSummarization } from '../services/a
 import { addHistory } from '../services/historyService.js'
 
 const store = useStore()
-const user = computed(() => store.getters.user)
+const email = computed(() => store.getters.email)
 
 const errorMessage = ref('')
 
 // mail
-const emailAddress = ref('')
+const emailAddress = ref(email === null ? '' : email)
 const isSendEmailAfterCompletion = ref(false)
 
 // annotation
@@ -61,7 +61,7 @@ async function onSummarizationClick() {
         minLength.value
       )
     }
-    if (user.value) {
+    if (email.value) {
       await addHistory(dropzoneFile.value.name, annotation.value)
     }
   } catch (ex) {
