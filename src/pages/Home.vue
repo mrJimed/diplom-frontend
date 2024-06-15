@@ -8,6 +8,8 @@ import { addHistory } from '../services/historyService.js'
 const store = useStore()
 const user = computed(() => store.getters.user)
 
+const errorMessage = ref('')
+
 // mail
 const emailAddress = ref('')
 const isSendEmailAfterCompletion = ref(false)
@@ -42,24 +44,33 @@ function onRemoveFile() {
 }
 
 async function onSummarizationClick() {
-  if (summarizationMethod.value === 'extractive') {
-    annotation.value = await extractiveSummarization(
-      dropzoneFile.value,
-      numberSentences.value,
-      isSendEmailAfterCompletion.value,
-      emailAddress.value
-    )
-  } else {
-    annotation.value = await abstractiveSummarization(
-      dropzoneFile.value,
-      isSendEmailAfterCompletion.value,
-      emailAddress.value,
-      maxLength.value,
-      minLength.value
-    )
-  }
-  if (user.value) {
-    await addHistory(dropzoneFile.value.name, annotation.value)
+  try {
+    if (summarizationMethod.value === 'extractive') {
+      annotation.value = await extractiveSummarization(
+        dropzoneFile.value,
+        numberSentences.value,
+        isSendEmailAfterCompletion.value,
+        emailAddress.value
+      )
+    } else {
+      annotation.value = await abstractiveSummarization(
+        dropzoneFile.value,
+        isSendEmailAfterCompletion.value,
+        emailAddress.value,
+        maxLength.value,
+        minLength.value
+      )
+    }
+    if (user.value) {
+      await addHistory(dropzoneFile.value.name, annotation.value)
+    }
+  } catch (ex) {
+    const {
+      response: { data }
+    } = ex
+    onRemoveFile()
+    errorMessage.value = data
+    setTimeout(() => (errorMessage.value = ''), 3500)
   }
 }
 
@@ -96,6 +107,14 @@ function onChangeMaxLength() {
         <button @click="onRemoveFile">
           <i class="fa-solid fa-xmark text-gray-500 dark:text-gray-400 text-lg"></i>
         </button>
+      </div>
+      <div v-if="errorMessage" class="">
+        <p
+          class="text-center px-4 py-2 font-bold bg-red-600 text-white rounded-3xl select-none cursor-pointer transition hover:bg-red-700"
+          @click="() => (errorMessage = '')"
+        >
+          {{ errorMessage }}
+        </p>
       </div>
 
       <input
