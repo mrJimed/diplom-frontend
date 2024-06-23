@@ -4,6 +4,10 @@ import Registration from '../pages/Registration.vue';
 import Login from '../pages/Login.vue';
 import History from '../pages/History.vue';
 
+/*
+    Навигация.
+*/
+
 const routes = [
     { path: '/', name: 'Home', component: Home },
     { path: '/registration', name: 'Registration', component: Registration },

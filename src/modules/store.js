@@ -1,5 +1,9 @@
 import { createStore } from 'vuex'
 
+/*
+    Vuex.
+*/
+
 const state = {
   username: sessionStorage.getItem('username'),
   email: sessionStorage.getItem('email')
